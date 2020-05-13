@@ -13,6 +13,8 @@ AWESOMENESS = [
     'oh-so-not-meh', 'brilliant', 'ducky', 'coolio', 'incredible',
     'wonderful', 'smashing', 'lovely']
 
+DISSES = ['lame', 'weird', 'creepy', 'scary', 'smelly', 'grimey', 'greasy', 'crusty']
+
 
 @app.route('/')
 def start_here():
@@ -32,7 +34,7 @@ def say_hello():
       </head>
       <body>
         <h1>Hi There!</h1>
-        <form action="/greet">
+        <form action="/diss">
           What's your name? <input type="text" name="person">
           <input type="submit" value="Submit">
         </form>
@@ -57,9 +59,32 @@ def greet_person():
       </head>
       <body>
         Hi, {}! I think you're {}!
+        <a href='/diss'>Diss </a></html>
       </body>
     </html>
     """.format(player, compliment)
+
+@app.route('/diss')
+def diss_person():
+    """Get user by name."""
+
+    player = request.args.get("person")
+
+    diss = choice(DISSES)
+
+    return """
+
+    <!doctype html>
+    <html>
+      <head>
+        <title>A diss</title>
+      </head>
+      <body>
+        Hi, {}! I think you're {}!
+      </body>
+    </html>
+    """.format(player, diss)
+
 
 
 if __name__ == '__main__':
